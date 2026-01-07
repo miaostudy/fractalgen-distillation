@@ -1,7 +1,8 @@
 import os
 from tqdm import tqdm
 import requests
-
+os.environ['http_proxy'] = '127.0.0.1:7890'
+os.environ['https_proxy'] = '127.0.0.1:7890'
 
 def download_pretrained_fractalar_in64(overwrite=False):
     download_path = "pretrained_models/fractalar_in64/checkpoint-last.pth"
