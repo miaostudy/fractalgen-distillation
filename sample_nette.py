@@ -52,20 +52,12 @@ def main(args):
                 class_embedding = torch.cat([class_embedding, fake_latent], dim=0)
 
             cond_list = [class_embedding for _ in range(model.generator.num_conds)]
-            
+
             def save_step_callback(patches_tensor, step):
                 """
                 patches_tensor: (B, 3, H, W) 或者是 (2*B, ...) 如果开了 CFG
                 step: 当前步数 (0-indexed)
                 """
-                # 如果开了 CFG，patches_tensor 包含了 cond 和 uncond 的结果拼接
-                # 通常上半部分是 cond，下半部分是 uncond (取决于实现，这里通常前面是 cond)
-                # MAR 代码里: torch.cat([patches, patches], dim=0) -> 前半部分是原 patches
-                if args.cfg != 1.0:
-                    real_bsz = patches_tensor.shape[0] // 2
-                    patches_tensor = patches_tensor[:real_bsz]
-
-                # 反归一化
                 imgs = patches_tensor * std + mean
                 imgs = torch.clamp(imgs, 0, 1)
                 imgs_np = imgs.permute(0, 2, 3, 1).detach().cpu().numpy()  # (B, H, W, 3)
