@@ -1,2 +1,2 @@
 from .ar import find_multiple
-import fractalgen
+import models.fractalgen
