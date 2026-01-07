@@ -107,7 +107,7 @@ if __name__ == "__main__":
     parser.add_argument('--ipc', default=10, type=int, help="Images Per Class (每类采样多少张)")
     parser.add_argument('--save_root', default='intermediate_samples', type=str)
     parser.add_argument('--class_names_path', default='misc/class_nette.txt', type=str, help="类名列表文件")
-    parser.add_argument('--class_indices_path', default='class_indices.txt', type=str, help="类索引文件")
+    parser.add_argument('--class_indices_path', default='misc/class_nette_indices.txt', type=str, help="类索引文件")
 
     # 生成参数
     parser.add_argument('--steps', default="64,16,16", type=str)
