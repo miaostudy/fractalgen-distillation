@@ -22,7 +22,7 @@ def main(args):
     download_func = getattr(download, f"download_pretrained_{args.model_type}", None)
     if download_func: download_func()
 
-    model = fractalgen.__dict__[args.model_type](guiding_pixel=True, num_conds=1).to(device)
+    model = fractalgen.__dict__[args.model_type](guiding_pixel=True, num_conds=5).to(device)
     state_dict = torch.load(f"pretrained_models/{args.model_type}/checkpoint-last.pth")["model"]
     model.load_state_dict(state_dict)
     model.eval()
