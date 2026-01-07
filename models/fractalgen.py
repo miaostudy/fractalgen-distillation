@@ -32,7 +32,7 @@ class FractalGen(nn.Module):
         # fractal specifics
         self.fractal_level = fractal_level
         self.num_fractal_levels = len(img_size_list)
-
+        print(f"num_fractal_levels = {self.num_fractal_levels}")
         # --------------------------------------------------------------------------
         # Class embedding for the first fractal level
         if self.fractal_level == 0:
@@ -122,6 +122,7 @@ class FractalGen(nn.Module):
         """
         Generate samples recursively.
         """
+        print('fractal_level', fractal_level)
         if fractal_level < self.num_fractal_levels - 2:
             next_level_sample_function = partial(
                 self.next_fractal.sample,

@@ -45,38 +45,40 @@ def main(args):
     print("Number of classes: {}".format(len(class_names)))
 
     # 逐个生成每个类的图像/可以试试一起生成然后切分
-    for i, label in enumerate(class_labels):
-        class_embedding = model.class_emb([label])
-        label_gen = torch.Tensor([label]).long().cuda()
+    for _ in range(args.ipc):
+        for i, label in enumerate(class_labels):
+            class_embedding = model.class_emb([label])
+            label_gen = torch.Tensor([label]).long().cuda()
 
-        if not cfg_scale == 1.0:
-            class_embedding = torch.cat([class_embedding, model.fake_latent.repeat(label_gen.size(0), 1)], dim=0)
+            if not cfg_scale == 1.0:
+                class_embedding = torch.cat([class_embedding, model.fake_latent.repeat(label_gen.size(0), 1)], dim=0)
 
-        save_dir = os.path.join(args.save_dir, class_names[i])
-        os.makedirs(save_dir, exist_ok=True)
-        with torch.no_grad():
-            with torch.cuda.amp.autocast():
-                sampled_images = model.sample(
-                    cond_list=[class_embedding for _ in range(num_conds)],
-                    num_iter_list=num_iter_list,
-                    cfg=cfg_scale, cfg_schedule=cfg_schedule,
-                    temperature=temperature,
-                    filter_threshold=filter_threshold,
-                    save_dir=save_dir,
-                    fractal_level=0,
-                    visualize=True
-                )
+            save_dir = os.path.join(args.save_dir, class_names[i])
+            os.makedirs(save_dir, exist_ok=True)
+            with torch.no_grad():
+                with torch.cuda.amp.autocast():
+                    sampled_images = model.sample(
+                        cond_list=[class_embedding for _ in range(num_conds)],
+                        num_iter_list=num_iter_list,
+                        cfg=cfg_scale, cfg_schedule=cfg_schedule,
+                        temperature=temperature,
+                        filter_threshold=filter_threshold,
+                        save_dir=save_dir,
+                        fractal_level=0,
+                        visualize=True
+                    )
 
-        pix_mean = torch.Tensor([0.485, 0.456, 0.406]).cuda().view(1, -1, 1, 1)
-        pix_std = torch.Tensor([0.229, 0.224, 0.225]).cuda().view(1, -1, 1, 1)
-        sampled_images = sampled_images * pix_std + pix_mean
-        sampled_images = sampled_images.detach().cpu()
+            pix_mean = torch.Tensor([0.485, 0.456, 0.406]).cuda().view(1, -1, 1, 1)
+            pix_std = torch.Tensor([0.229, 0.224, 0.225]).cuda().view(1, -1, 1, 1)
+            sampled_images = sampled_images * pix_std + pix_mean
+            sampled_images = sampled_images.detach().cpu()
 
-        save_image(sampled_images, "samples.png", nrow=1, normalize=True, value_range=(0, 1))
+            save_image(sampled_images, "samples.png", nrow=1, normalize=True, value_range=(0, 1))
 
 if __name__ == 'main':
     args = argparse.ArgumentParser()
     args.add_argument("--save_dir", default='results/imagenette', type=str)
+    args.add_argument("--ipc", default=10, type=str)
 
     parsed_args = args.parse_args()
     main(parsed_args)
