@@ -265,7 +265,7 @@ class MAR(nn.Module):
 
         return patches, cond_list_next, guiding_pixel_loss
 
-    def sample(self, cond_list, num_iter, cfg, cfg_schedule, temperature, filter_threshold, next_level_sample_function,
+    def sample(self, cond_list, num_iter, cfg, cfg_schedule, temperature, filter_threshold, next_level_sample_function,save_path,
                visualize=False):
         """ generation """
         if cfg == 1.0:
@@ -336,7 +336,7 @@ class MAR(nn.Module):
 
             # visualize generation process for colab
             if visualize:
-                visualize_patch(self.unpatchify(patches))
+                visualize_patch(self.unpatchify(patches), save_path)
 
         patches = self.unpatchify(patches)
         return patches
