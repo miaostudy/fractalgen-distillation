@@ -61,7 +61,3 @@ sampled_images = sampled_images.detach().cpu()
 # Save & display images
 save_image(sampled_images, "samples.png", nrow=int(samples_per_row), normalize=True, value_range=(0, 1))
 samples = Image.open("samples.png")
-
-from IPython.display import display, clear_output
-clear_output(wait=True)
-display(samples)
