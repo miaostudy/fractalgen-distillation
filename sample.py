@@ -31,8 +31,8 @@ cfg_scale = 10 #@param {type:"slider", min:1, max:20, step:0.5} # 类别标签�
 cfg_schedule = "linear" #@param ["linear", "constant"] # constant: 使用固定的cfg_scale
 temperature = 1.1 #@param {type:"slider", min:0.9, max:1.2, step:0.01} # 随机性
 filter_threshold = 1e-3 # 过滤阈值
-class_labels = [0] #@param {type:"raw"}
-samples_per_row = 1 #@param {type:"number"} # 每行展示的数量
+class_labels = 0, 1, 3, 2#@param {type:"raw"}
+samples_per_row = 2 #@param {type:"number"} # 每行展示的数量
 
 label_gen = torch.Tensor(class_labels).long().cuda()
 class_embedding = model.class_emb(label_gen)
