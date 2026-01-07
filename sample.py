@@ -32,7 +32,7 @@ cfg_schedule = "constant" #@param ["linear", "constant"] # constant: 使用固�
 temperature = 1.1 #@param {type:"slider", min:0.9, max:1.2, step:0.01} # 随机性
 filter_threshold = 1e-3 # 过滤阈值
 class_labels = 207 #@param {type:"raw"}
-samples_per_row = 4 #@param {type:"number"} # 每行展示的数量
+samples_per_row = 1 #@param {type:"number"} # 每行展示的数量
 
 label_gen = torch.Tensor(class_labels).long().cuda()
 class_embedding = model.class_emb(label_gen)
