@@ -3,12 +3,13 @@ from PIL import Image
 import torch
 import os
 
-def visualize_patch(viz_patches, save_path):
+def visualize_patch(viz_patches):
     from IPython.display import display, clear_output
     pix_mean = torch.Tensor([0.485, 0.456, 0.406]).cuda().view(1, -1, 1, 1)
     pix_std = torch.Tensor([0.229, 0.224, 0.225]).cuda().view(1, -1, 1, 1)
     viz_patches = viz_patches * pix_std + pix_mean
     img_size = viz_patches.size(2)
+    save_path = 'test'
     os.makedirs(save_path, exist_ok=True)
 
     if img_size < 256:

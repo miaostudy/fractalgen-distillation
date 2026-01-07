@@ -49,7 +49,6 @@ with torch.no_grad():
       temperature=temperature,
       filter_threshold=filter_threshold,
       fractal_level=0,
-      save_path='test',
       visualize=True
     )
 
