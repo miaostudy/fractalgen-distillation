@@ -8,7 +8,7 @@ import argparse
 from tqdm import tqdm
 
 
-def main():
+def main(args):
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     with open(args.class_names_path, 'r') as f:
