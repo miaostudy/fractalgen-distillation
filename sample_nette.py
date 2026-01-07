@@ -51,8 +51,8 @@ def main(args):
                 fake_latent = model.fake_latent.repeat(current_bsz, 1)
                 class_embedding = torch.cat([class_embedding, fake_latent], dim=0)
 
-            cond_list = [class_embedding for _ in range(model.num_conds)]
-
+            cond_list = [class_embedding for _ in range(model.generator.num_conds)]
+            
             def save_step_callback(patches_tensor, step):
                 """
                 patches_tensor: (B, 3, H, W) 或者是 (2*B, ...) 如果开了 CFG
