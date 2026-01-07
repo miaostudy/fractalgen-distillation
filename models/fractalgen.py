@@ -118,11 +118,11 @@ class FractalGen(nn.Module):
         return loss + guiding_pixel_loss
 
     def sample(self, cond_list, num_iter_list, cfg, cfg_schedule, temperature, filter_threshold, fractal_level,
-               visualize=False):
+               visualize=False,**kwargs):
         """
         Generate samples recursively.
         """
-        print('fractal_level', fractal_level)
+
         if fractal_level < self.num_fractal_levels - 2:
             next_level_sample_function = partial(
                 self.next_fractal.sample,
@@ -136,7 +136,7 @@ class FractalGen(nn.Module):
         # Recursively sample using the current generator.
         return self.generator.sample(
             cond_list, num_iter_list[fractal_level], cfg, cfg_schedule,
-            temperature, filter_threshold, next_level_sample_function, visualize,
+            temperature, filter_threshold, next_level_sample_function, visualize,**kwargs
         )
 
 

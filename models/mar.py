@@ -266,7 +266,7 @@ class MAR(nn.Module):
         return patches, cond_list_next, guiding_pixel_loss
 
     def sample(self, cond_list, num_iter, cfg, cfg_schedule, temperature, filter_threshold, next_level_sample_function,
-               visualize=False):
+               visualize=False, step_callback=None):
         """ generation """
         if cfg == 1.0:
             bsz = cond_list[0].size(0)
@@ -333,7 +333,9 @@ class MAR(nn.Module):
 
             cur_patches[mask_to_pred.nonzero(as_tuple=True)] = sampled_patches.to(cur_patches.dtype)
             patches = cur_patches.clone()
-
+            if step_callback is not None:
+                # 传入当前步数 (step) 和反Patch化后的图像
+                step_callback(self.unpatchify(patches), step)
             # visualize generation process for colab
             if visualize:
                 visualize_patch(self.unpatchify(patches))
