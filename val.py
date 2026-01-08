@@ -43,7 +43,7 @@ def main(args):
         print(f"\n训练出错，返回码: {return_code}")
 
 
-if __name__ ==  'main':
+if __name__ ==  '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--save_dir', default='/data2/wlf/fractalgen-distillation/nette', type=str)
     parser.add_argument('--imagenet_path', default="/data/wlf/datasets/imagenette/", type=str)
