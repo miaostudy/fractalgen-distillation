@@ -3,17 +3,50 @@ import argparse
 
 
 def main(args):
-    try:
-        results = subprocess.run(['scripts/run_val.sh', args.save_dir], capture_output=True, text=True)
-        print("STDOUT:")
-        print(results.stdout)
-        print("STDERR:")
-        print(results.stderr)
-    except subprocess.CalledProcessError as e:
-        print(e)
+    # 将命令构建为一个列表（更安全，无需 shell=True）
+    command = [
+        "python", "IGD/train.py",
+        "-d", "imagenet",
+        "--imagenet_dir", args.imagenet_path,
+        "-n", "resnet",
+        "--depth", "18",
+        "--nclass", "10",
+        "--norm_type", "instance",
+        "--ipc", "10",
+        "--tag", "test",
+        "--slct_type", "random",
+        "--spec", "nette",
+        "--batch_size", "32",
+        "--verbose"
+    ]
+
+    print("开始训练...")
+
+    # 使用 Popen 启动进程
+    process = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1
+    )
+
+    for line in process.stdout:
+        print(line, end='')
+
+    # 等待进程结束并获取返回码
+    return_code = process.wait()
+
+    if return_code == 0:
+        print("\n训练成功完成！")
+    else:
+        print(f"\n训练出错，返回码: {return_code}")
+
+
 if __name__ ==  'main':
     parser = argparse.ArgumentParser()
-    parser.add_argument('save_dir', default='/data2/wlf/fractalgen-distillation/nette', type=float)
+    parser.add_argument('--save_dir', default='/data2/wlf/fractalgen-distillation/nette', type=str)
+    parser.add_argument('--imagenet_path', default="/data/wlf/datasets/imagenette/", type=str)
 
     args = parser.parse_args()
 
