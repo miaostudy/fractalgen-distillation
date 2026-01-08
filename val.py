@@ -4,7 +4,7 @@ import argparse
 import sys
 import re  # 用于正则提取
 import matplotlib.pyplot as plt  # 用于绘图
-
+import time
 
 def parse_accuracy(line):
     match = re.search(r'mean:\s*([0-9.]+)', line)
@@ -81,7 +81,9 @@ def main(args):
             results.append((step_val, final_acc))
         else:
             print(f"\nStep {s} 训练出错，返回码: {return_code}")
-
+        print("等待 3 秒释放资源...")
+        sys.stdout.flush()
+        time.sleep(3)
     # 4. 绘图
     print("\n所有任务完成，开始绘图...")
     if len(results) > 0:
