@@ -22,7 +22,7 @@ def main(args):
     steps = os.listdir(args.save_dir)
     results = []
 
-    for s in range(1, len(steps), -1):
+    for s in reversed(range(1, len(steps))):
         print(f'\n{"=" * 20}\n开始评估数据集 Step: {s}\n{"=" * 20}')
 
         # 构造路径
