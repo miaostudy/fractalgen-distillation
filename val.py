@@ -114,7 +114,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # 注意路径末尾不要带空格
-    parser.add_argument('--save_dir', default='/data2/wlf/fractalgen-distillation/nette', type=str)
+    parser.add_argument('--save_dir', default='/data/wlf/fractalgen-distillation/nette', type=str)
     parser.add_argument('--imagenet_path', default="/data/wlf/datasets/imagenette/", type=str)
 
     args = parser.parse_args()
