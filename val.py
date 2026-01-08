@@ -7,20 +7,13 @@ import matplotlib.pyplot as plt  # 用于绘图
 
 
 def parse_accuracy(line):
-    """
-    根据你的 train.py 输出日志格式提取准确率。
-    假设输出包含类似 "Test Acc: 85.4" 或 "Accuracy: 85.4" 的字样。
-    你需要根据实际控制台打印的内容修改正则表达式。
-    """
-    # 示例正则：匹配 "Acc: 12.34" 或 "Accuracy: 12.34"
-    # match = re.search(r'(?:Acc|Accuracy)[:\s]+(\d+\.\d+)', line, re.IGNORECASE)
+    match = re.search(r'mean:\s*([0-9.]+)', line)
 
-    # 另一种常见情况： "Test set: Average loss: ..., Accuracy: 85/100 (85.00%)"
-    match = re.search(r'Accuracy:.*?(\d+\.\d+)%', line)
-
-    # 如果你的输出只是简单的数字，或者格式不同，请调整这里
     if match:
-        return float(match.group(1))
+        try:
+            return float(match.group(1))
+        except ValueError:
+            return None
     return None
 
 
