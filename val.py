@@ -3,6 +3,21 @@ import argparse
 
 
 def main(args):
+    command1 = ["cd", "/data/wlf/RAE-IGD-DMVAE",]
+
+
+    # 使用 Popen 启动进程
+    process = subprocess.Popen(
+        command1,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1
+    )
+
+    process.wait()
+
+
     # 将命令构建为一个列表（更安全，无需 shell=True）
     command = [
         "python", "/data/wlf/RAE-IGD-DMVAE/IGD/train.py",
