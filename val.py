@@ -42,7 +42,7 @@ def main(args):
             "--tag", "test",
             "--slct_type", "random",
             "--spec", "nette",
-            "--batch_size", "32",
+            "--batch_size", "1024",
             "--epochs", f"{(s+1)*100}",
             "--verbose"
         ]
