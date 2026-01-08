@@ -33,7 +33,7 @@ def main(args):
         print(f'\n{"=" * 20}\n开始评估数据集 Step: {s}\n{"=" * 20}')
 
         # 构造路径
-        distilled_data_path = os.path.join(args.save_dir, s)
+        distilled_data_path = os.path.join(args.save_dir, str(s))
 
         # 2. 构建命令
         # 注意：--imagenet_dir 后面紧跟两个独立的元素
