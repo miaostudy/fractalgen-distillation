@@ -8,7 +8,7 @@ def main(args):
         print("STDOUT:")
         print(results.stdout)
         print("STDERR:")
-        print(results.stderr
+        print(results.stderr)
     except subprocess.CalledProcessError as e:
         print(e)
 if __name__ ==  'main':
