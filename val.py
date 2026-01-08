@@ -43,7 +43,8 @@ def main(args):
             "--slct_type", "random",
             "--spec", "nette",
             "--batch_size", "1024",
-            "--epochs", f"{(s+1)*100}",
+            # "--epochs", f"{(s+1)*100}",
+            "--epochs", f"{20}",
             "--verbose"
         ]
 
