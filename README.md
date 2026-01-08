@@ -15,3 +15,8 @@ python scripts/sample_nette.py --ipc 10 --save_dir 'nette'
     | n01440764
     | n02102040 
 ```
+
+# 测试准确率
+```shell
+
+```
