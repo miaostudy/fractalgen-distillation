@@ -6,9 +6,9 @@ def main():
     parser = argparse.ArgumentParser(description="Get ImageNet class indices from a list of class names.")
     parser.add_argument('--data_path', default='/data/wlf/datasets/imagenet', type=str,
                         help='Path to the ImageNet dataset (root folder containing train/val)')
-    parser.add_argument('--class_list_path', default='misc/class_nette.txt', type=str,
+    parser.add_argument('--class_list_path', default='misc/class_woof.txt', type=str,
                         help='Path to the text file containing class names (one per line)')
-    parser.add_argument('--output_path', default='misc/class_nette_indices.txt', type=str,
+    parser.add_argument('--output_path', default='misc/class_woof_indices.txt', type=str,
                         help='Path to save the resulting indices')
     args = parser.parse_args()
 
