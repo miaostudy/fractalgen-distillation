@@ -1,26 +1,14 @@
 import subprocess
 import argparse
-
+import sys # 建议导入 sys 以便处理异常时的 flush
 
 def main(args):
-    command1 = ["cd", "/data/wlf/RAE-IGD-DMVAE",]
+    # 定义工作目录
+    work_dir = "/data/wlf/RAE-IGD-DMVAE"
 
-
-    # 使用 Popen 启动进程
-    process = subprocess.Popen(
-        command1,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1
-    )
-
-    process.wait()
-
-
-    # 将命令构建为一个列表（更安全，无需 shell=True）
+    # 构建命令
     command = [
-        "python", "/data/wlf/RAE-IGD-DMVAE/IGD/train.py",
+        "python", "IGD/train.py",
         "-d", "imagenet",
         "--imagenet_dir", args.imagenet_path,
         "-n", "resnet",
@@ -35,21 +23,24 @@ def main(args):
         "--verbose"
     ]
 
+    print(f"切换工作目录至: {work_dir}")
     print("开始训练...")
 
     # 使用 Popen 启动进程
     process = subprocess.Popen(
         command,
+        cwd=work_dir,             # <--- 关键点：在这里指定工作目录
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
         bufsize=1
     )
 
+    # 实时输出
     for line in process.stdout:
         print(line, end='')
 
-    # 等待进程结束并获取返回码
+    # 等待进程结束
     return_code = process.wait()
 
     if return_code == 0:
