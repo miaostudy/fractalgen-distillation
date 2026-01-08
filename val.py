@@ -5,7 +5,7 @@ import argparse
 def main(args):
     # 将命令构建为一个列表（更安全，无需 shell=True）
     command = [
-        "python", "/data/wlf/RAE-IGD-DMVAE/train.py",
+        "python", "/data/wlf/RAE-IGD-DMVAE/IGD/train.py",
         "-d", "imagenet",
         "--imagenet_dir", args.imagenet_path,
         "-n", "resnet",
