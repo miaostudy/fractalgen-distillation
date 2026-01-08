@@ -22,7 +22,7 @@ def main(args):
     steps = os.listdir(args.save_dir)
     results = []
 
-    for s in range(1, len(steps)):
+    for s in range(1, len(steps), -1):
         print(f'\n{"=" * 20}\n开始评估数据集 Step: {s}\n{"=" * 20}')
 
         # 构造路径
@@ -44,7 +44,6 @@ def main(args):
             "--spec", "nette",
             "--batch_size", "1024",
             "--epochs", f"{(s+1)*100}",
-            "--repeat", "2",
             "--verbose"
         ]
 
