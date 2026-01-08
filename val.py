@@ -44,6 +44,7 @@ def main(args):
             "--spec", "nette",
             "--batch_size", "1024",
             "--epochs", f"{(s+1)*100}",
+            "--repeat", "2",
             "--verbose"
         ]
 
