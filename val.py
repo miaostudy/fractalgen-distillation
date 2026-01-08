@@ -26,20 +26,10 @@ def parse_accuracy(line):
 
 def main(args):
     work_dir = "/data/wlf/RAE-IGD-DMVAE"
+    steps = os.listdir(args.save_dir)
+    results = []
 
-    # 1. 获取所有子目录
-    # 假设 save_dir 下全是数字命名的文件夹（代表 step），我们需要排序
-    try:
-        steps = [d for d in os.listdir(args.save_dir) if os.path.isdir(os.path.join(args.save_dir, d))]
-        # 尝试按数字排序 (10, 100, 1000)，而不是按字符 (10, 1000, 100)
-        steps.sort(key=lambda x: int(x) if x.isdigit() else x)
-    except Exception as e:
-        print(f"读取目录出错: {e}")
-        return
-
-    results = []  # 存储 (step, accuracy)
-
-    for s in steps:
+    for s in range(len(steps)):
         print(f'\n{"=" * 20}\n开始评估数据集 Step: {s}\n{"=" * 20}')
 
         # 构造路径
@@ -50,7 +40,7 @@ def main(args):
         command = [
             "python", "IGD/train.py",
             "-d", "imagenet",
-            "--imagenet_dir", distilled_data_path, args.imagenet_path,  # <--- 关键修改：分开传
+            "--imagenet_dir", distilled_data_path, args.imagenet_path,
             "-n", "resnet",
             "--depth", "18",
             "--nclass", "10",
@@ -60,7 +50,7 @@ def main(args):
             "--slct_type", "random",
             "--spec", "nette",
             "--batch_size", "32",
-            "--epochs", f"{s*100}",
+            "--epochs", f"{(s+1)*100}",
             "--verbose"
         ]
 
